@@ -1,1 +1,7 @@
 streamlit
+firebase-admin
+pandas
+google-auth google-auth-oauthlib google-auth-httplib2
+requests
+beautifulsoup4
+fpdf
