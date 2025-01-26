@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import google.generativeai as genai
 from googleapiclient.discovery import build
+import google.auth
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
 import requests
 from bs4 import BeautifulSoup
 from io import StringIO
@@ -120,5 +123,11 @@ def generate_pdf(summaries_df):
         pdf.multi_cell(0, 10, txt=f"Summary: {row['Summary']}")
     return pdf.output(dest='S').encode('latin1')
 
-# The rest of your app code remains the same...
+# Google authentication using google-auth library
+def authenticate_google_account():
+    credentials, project = google.auth.default()
+    if credentials and credentials.expired and credentials.refresh_token:
+        credentials.refresh(Request())
+    return credentials
 
+# The rest of your app code remains the same...
